@@ -47,4 +47,3 @@ Este es el frontend de un asistente virtual para diagnóstico de infraestructura
 
 ---
 
-¡Listo! Ahora puedes migrar y correr tu frontend de VMware Assistance en cualquier repositorio.
