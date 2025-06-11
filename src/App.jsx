@@ -16,7 +16,7 @@ import axios from 'axios'
 function App() {
   const [messages, setMessages] = useState([
     {
-      text: '¡Hola! Soy tu asistente virtual para diagnóstico de infraestructura VMware. ¿En qué puedo ayudarte hoy?',
+      text: 'Hola, soy tu asistente virtual. ¿En qué puedo ayudarte?',
       isUser: false,
     },
   ])
@@ -48,7 +48,7 @@ function App() {
       // Agregar respuesta del asistente
       setMessages((prev) => [
         ...prev,
-        { text: response.data.response, isUser: false },
+        { text: response.data.response, isUser: false, name: 'VMware Assistance' },
       ])
     } catch (error) {
       console.error('Error:', error)
@@ -69,7 +69,7 @@ function App() {
       <VStack h="full" spacing={4}>
         <Box w="full" textAlign="center">
           <Heading size="lg" color="blue.600">
-            Asistente VMware
+            VMware Assistance
           </Heading>
           <Text color="gray.600">
             Diagnóstico inteligente de infraestructura virtual
