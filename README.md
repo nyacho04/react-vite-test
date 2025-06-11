@@ -1,12 +1,50 @@
-# React + Vite
+# VMware Assistance (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es el frontend de un asistente virtual para diagnóstico de infraestructura VMware, construido con React, Vite y Chakra UI.
 
-Currently, two official plugins are available:
+## Estructura del proyecto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+/project-root
+  /src
+    App.jsx
+    main.jsx
+    index.css
+    /components
+      ChatInput.jsx
+      ChatMessage.jsx
+  package.json
+  package-lock.json
+  vite.config.js
+  /public
+    index.html
+```
 
-## Expanding the ESLint configuration
+## Requisitos
+- Node.js >= 18.x
+- npm >= 9.x
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Instalación
+
+1. Clona el repositorio o copia los archivos a tu nuevo proyecto.
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+4. Abre tu navegador en [http://localhost:5173](http://localhost:5173) (o el puerto que indique la terminal).
+
+## Notas
+- Si no tienes backend, la interfaz funcionará pero no responderá a los mensajes.
+- Si tienes backend, asegúrate de que el endpoint `/chat` esté disponible en `http://localhost:8000`.
+
+## Migración
+- Copia la carpeta `src`, el archivo `package.json`, `package-lock.json`, `vite.config.js` y la carpeta `public` a tu nuevo repositorio.
+- Sigue los pasos de instalación arriba indicados.
+
+---
+
+¡Listo! Ahora puedes migrar y correr tu frontend de VMware Assistance en cualquier repositorio.
