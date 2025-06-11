@@ -15,18 +15,27 @@ const ChatMessage = ({ message, isUser }) => {
         p={3}
         borderRadius="lg"
         boxShadow="sm"
+        direction="column"
       >
-        <Avatar
-          size="sm"
-          icon={isUser ? <FaUser /> : <FaRobot />}
-          bg={isUser ? 'blue.600' : 'gray.400'}
-          mr={2}
-        />
-        <Box>
-          <Text fontSize="sm" fontWeight="bold" mb={1}>
+        <Flex align="center" mb={2}>
+          <Avatar
+            size="sm"
+            icon={isUser ? <FaUser /> : <FaRobot />}
+            bg={isUser ? 'blue.600' : 'gray.400'}
+            mr={2}
+          />
+          <Text fontSize="sm" fontWeight="bold">
             {isUser ? 'Tú' : 'Asistente VMware'}
           </Text>
-          <Text fontSize="md">{message}</Text>
+        </Flex>
+        <Box>
+          <Text 
+            fontSize="md" 
+            whiteSpace="pre-wrap"
+            wordBreak="break-word"
+          >
+            {message}
+          </Text>
         </Box>
       </Flex>
     </Flex>

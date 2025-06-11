@@ -2,12 +2,12 @@ import { Input, IconButton, Flex } from '@chakra-ui/react'
 import { FaPaperPlane } from 'react-icons/fa'
 import { useState } from 'react'
 
-const ChatInput = ({ onSendMessage }) => {
+const ChatInput = ({ onSendMessage, isLoading }) => {
   const [message, setMessage] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (message.trim()) {
+    if (message.trim() && !isLoading) {
       onSendMessage(message)
       setMessage('')
     }
@@ -23,6 +23,7 @@ const ChatInput = ({ onSendMessage }) => {
           size="lg"
           mr={2}
           bg="white"
+          isDisabled={isLoading}
           _focus={{
             borderColor: 'blue.500',
             boxShadow: '0 0 0 1px var(--chakra-colors-blue-500)',
@@ -34,6 +35,8 @@ const ChatInput = ({ onSendMessage }) => {
           aria-label="Enviar mensaje"
           icon={<FaPaperPlane />}
           size="lg"
+          isLoading={isLoading}
+          isDisabled={isLoading || !message.trim()}
         />
       </Flex>
     </form>

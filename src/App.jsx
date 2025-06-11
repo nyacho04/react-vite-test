@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   Box,
   Container,
@@ -7,6 +7,7 @@ import {
   useToast,
   Flex,
   Text,
+  Spinner,
 } from '@chakra-ui/react'
 import ChatMessage from './components/ChatMessage'
 import ChatInput from './components/ChatInput'
@@ -20,9 +21,20 @@ function App() {
     },
   ])
   const [isLoading, setIsLoading] = useState(false)
+  const messagesEndRef = useRef(null)
   const toast = useToast()
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
   const handleSendMessage = async (message) => {
+    if (!message.trim()) return
+
     // Agregar mensaje del usuario
     setMessages((prev) => [...prev, { text: message, isUser: true }])
     setIsLoading(true)
@@ -39,9 +51,10 @@ function App() {
         { text: response.data.response, isUser: false },
       ])
     } catch (error) {
+      console.error('Error:', error)
       toast({
         title: 'Error',
-        description: 'No se pudo obtener respuesta del servidor',
+        description: error.response?.data?.detail || 'No se pudo obtener respuesta del servidor',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -98,10 +111,16 @@ function App() {
                   isUser={msg.isUser}
                 />
               ))}
+              {isLoading && (
+                <Flex justify="center" my={4}>
+                  <Spinner color="blue.500" />
+                </Flex>
+              )}
+              <div ref={messagesEndRef} />
             </VStack>
           </Box>
 
-          <ChatInput onSendMessage={handleSendMessage} />
+          <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
         </Box>
       </VStack>
     </Container>
