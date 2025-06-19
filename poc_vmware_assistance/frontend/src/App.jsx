@@ -95,10 +95,13 @@ function App() {
 
   return (
     <Box minH="100vh" minW="100vw" bg="#18181A" display="flex" flexDirection="column" alignItems="center" justifyContent="center" position="relative">
-      <Box mt={16} mb={8} textAlign="center">
+      <Box mt={16} mb={2} textAlign="center">
         <Heading size="2xl" color="blue.300" letterSpacing="tight">
           VMware Assistance
         </Heading>
+        <Text color="gray.400" fontSize="xl" mt={4}>
+          Diagnóstico inteligente de infraestructura virtual
+        </Text>
       </Box>
       <AnimatePresence>
         {chatOpen && (
@@ -107,8 +110,8 @@ function App() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            style={{ position: 'absolute', top: 48, right: 64, zIndex: 10 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            style={{ position: 'absolute', top: 64, right: 96, zIndex: 10 }}
           >
             <IconButton
               icon={<FaRedo />}
@@ -132,29 +135,26 @@ function App() {
           {!chatOpen && (
             <motion.div
               key="intro-block"
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              initial={{ opacity: 0, y: 80, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -40, scale: 0.95 }}
-              transition={{ duration: 0.7 }}
+              exit={{ opacity: 0, y: 80, scale: 0.98 }}
+              transition={{ duration: 1, ease: 'easeInOut' }}
               style={{ width: '100%' }}
             >
               <Box
-                w={{ base: '100%', sm: '80%', md: '40%' }}
+                w={{ base: '100%', sm: '80%', md: '48%' }}
                 mx="auto"
                 bg="#232328"
-                borderRadius="3xl"
-                boxShadow="0 8px 32px 0 rgba(0,0,0,0.25)"
-                p={12}
+                borderRadius="4xl"
+                boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
+                p={16}
                 textAlign="center"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
                 justifyContent="center"
-                minH="180px"
+                minH="200px"
               >
-                <Text color="gray.400" fontSize="lg" mb={8}>
-                  Diagnóstico inteligente de infraestructura virtual
-                </Text>
                 <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe una consulta sobre la infraestructura VMware." showCounter={true} modernStyle={true} />
               </Box>
             </motion.div>
@@ -164,31 +164,29 @@ function App() {
           {chatOpen && (
             <motion.div
               key="chat-block"
-              initial={{ opacity: 0, y: 80, scale: 0.95 }}
+              initial={{ opacity: 0, y: 80, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 80, scale: 0.95 }}
-              transition={{ duration: 0.7 }}
+              exit={{ opacity: 0, y: 80, scale: 0.98 }}
+              transition={{ duration: 1, ease: 'easeInOut' }}
               style={{ width: '100%' }}
             >
               <Flex w="100%" justify="center">
                 <Box
-                  w={{ base: '100%', sm: '80%', md: '60%' }}
+                  w={{ base: '100%', sm: '80%', md: '48%' }}
                   bg="#232328"
-                  borderRadius="3xl"
-                  boxShadow="0 8px 32px 0 rgba(0,0,0,0.25)"
+                  borderRadius="4xl"
+                  boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
                   overflow="hidden"
                   display="flex"
                   flexDirection="column"
-                  minH="500px"
+                  minH="600px"
                   maxH="80vh"
                   position="relative"
                 >
-                  <Flex w="full" direction="column" align="center" p={8} borderBottom="1px solid #222">
-                  </Flex>
                   <Box
                     flex={1}
                     overflowY="auto"
-                    p={4}
+                    p={8}
                     css={{
                       '&::-webkit-scrollbar': {
                         width: '4px',
@@ -218,7 +216,7 @@ function App() {
                       <div ref={messagesEndRef} />
                     </VStack>
                   </Box>
-                  <Box p={4} bg="#232328">
+                  <Box p={6} bg="#232328">
                     <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
                   </Box>
                 </Box>
