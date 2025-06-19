@@ -88,55 +88,20 @@ function App() {
   }
 
   return (
-    <Box minH="100vh" minW="100vw" bg="#18181A" display="flex" flexDirection="column" alignItems="center" justifyContent="flex-start" position="relative">
-      <Box w="100%" px={12} pt={8} pb={2} display="flex" alignItems="flex-start" justifyContent="space-between">
-        <Box>
-          <Heading size="2xl" color="blue.300" letterSpacing="tight">
+    <Box minH="100vh" minW="100vw" bg="#18181A" position="relative">
+      {/* INTERFAZ INICIAL: solo título, subtítulo e input centrados verticalmente */}
+      {!chatOpen && (
+        <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+          <Heading size="2xl" color="blue.300" letterSpacing="tight" mb={2}>
             VMware Assistance
           </Heading>
-          <Text color="gray.400" fontSize="xl" mt={2}>
+          <Text color="gray.400" fontSize="xl" mb={8}>
             Diagnóstico inteligente de infraestructura virtual
           </Text>
-        </Box>
-        <Box display="flex" alignItems="center" gap={2}>
-          <IconButton
-            icon={<FaRedo />}
-            onClick={handleResetChat}
-            aria-label="Reiniciar chat"
-            colorScheme="blue"
-            variant="solid"
-            borderRadius="full"
-            size="lg"
-            bg="#2196f3"
-            _hover={{ bg: '#1976d2' }}
-            _active={{ bg: '#1565c0' }}
-            color="white"
-            boxShadow="0 2px 8px 0 rgba(0,0,0,0.10)"
-            mt={-2}
-          />
-          <IconButton
-            icon={colorMode === 'dark' ? <FaSun /> : <FaMoon />}
-            onClick={toggleColorMode}
-            aria-label="Cambiar tema"
-            colorScheme="blue"
-            variant="solid"
-            borderRadius="full"
-            size="lg"
-            bg="#2196f3"
-            _hover={{ bg: '#1976d2' }}
-            _active={{ bg: '#1565c0' }}
-            color="white"
-            mt={-2}
-          />
-        </Box>
-      </Box>
-      <VStack w="100%" maxW="container.xl" spacing={4} flex={1} justifyContent="center">
-        {!chatOpen && (
           <Box
             w="100%"
             maxW="800px"
             mx="auto"
-            mt={8}
             display="flex"
             alignItems="center"
             bg="#232328"
@@ -146,10 +111,56 @@ function App() {
           >
             <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="transparent" fullWidthInput={true} />
           </Box>
-        )}
-        {chatOpen && (
-          <Box w="100%" maxW="800px" mx="auto" mt={8}>
-            <VStack spacing={4} align="stretch">
+        </Box>
+      )}
+      {/* INTERFAZ DE CHAT: header arriba, historial e input centrados */}
+      {chatOpen && (
+        <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="flex-start">
+          {/* Header arriba */}
+          <Box w="100%" px={12} pt={8} pb={2} display="flex" alignItems="flex-start" justifyContent="space-between">
+            <Box>
+              <Heading size="2xl" color="blue.300" letterSpacing="tight">
+                VMware Assistance
+              </Heading>
+              <Text color="gray.400" fontSize="xl" mt={2}>
+                Diagnóstico inteligente de infraestructura virtual
+              </Text>
+            </Box>
+            <Box display="flex" alignItems="center" gap={2}>
+              <IconButton
+                icon={<FaRedo />}
+                onClick={handleResetChat}
+                aria-label="Reiniciar chat"
+                colorScheme="blue"
+                variant="solid"
+                borderRadius="full"
+                size="lg"
+                bg="#2196f3"
+                _hover={{ bg: '#1976d2' }}
+                _active={{ bg: '#1565c0' }}
+                color="white"
+                boxShadow="0 2px 8px 0 rgba(0,0,0,0.10)"
+                mt={-2}
+              />
+              <IconButton
+                icon={colorMode === 'dark' ? <FaSun /> : <FaMoon />}
+                onClick={toggleColorMode}
+                aria-label="Cambiar tema"
+                colorScheme="blue"
+                variant="solid"
+                borderRadius="full"
+                size="lg"
+                bg="#2196f3"
+                _hover={{ bg: '#1976d2' }}
+                _active={{ bg: '#1565c0' }}
+                color="white"
+                mt={-2}
+              />
+            </Box>
+          </Box>
+          {/* Chat centrado */}
+          <Box w="100%" maxW="800px" mx="auto" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" pt={8}>
+            <VStack spacing={4} align="stretch" w="100%">
               {messages.map((msg, index) => (
                 <ChatMessage
                   key={index}
@@ -179,8 +190,8 @@ function App() {
               <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="transparent" fullWidthInput={true} />
             </Box>
           </Box>
-        )}
-      </VStack>
+        </Box>
+      )}
     </Box>
   )
 }
