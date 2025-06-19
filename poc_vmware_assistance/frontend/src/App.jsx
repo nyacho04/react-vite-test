@@ -25,6 +25,7 @@ function App() {
   const { colorMode, toggleColorMode } = useColorMode()
   const [chatOpen, setChatOpen] = useState(false)
   const [firstMessage, setFirstMessage] = useState("")
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -34,21 +35,20 @@ function App() {
     scrollToBottom()
   }, [messages])
 
+  useEffect(() => {
+    if (isTransitioning) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isTransitioning])
+
   const handleSendMessage = async (message) => {
     if (!message.trim()) return
 
-    if (!chatOpen) {
-      setFirstMessage(message)
-      setChatOpen(true)
-      setMessages([
-        {
-          text: '¡Hola! Consulta aquí cualquier duda sobre tu infraestructura VMware.',
-          isUser: false,
-        },
-        { text: message, isUser: true },
-      ])
-      return
-    }
 
     setMessages((prev) => [...prev, { text: message, isUser: true }])
     setIsLoading(true)
@@ -99,9 +99,11 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: 'easeInOut' }}
-            style={{ width: '100%' }}
+            style={{ width: '100%', background: '#18181A' }}
+            onAnimationStart={() => setIsTransitioning(true)}
+            onAnimationComplete={() => setIsTransitioning(false)}
           >
-            <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+            <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" bg="#18181A">
               <Heading size="2xl" color="blue.300" letterSpacing="tight" mb={2}>
                 VMware Assistance
               </Heading>
@@ -112,7 +114,7 @@ function App() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: 'easeInOut' }}
-                style={{ width: '100%' }}
+                style={{ width: '100%', background: 'transparent' }}
               >
                 <Box
                   w="100%"
@@ -141,11 +143,13 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: 'easeInOut' }}
-            style={{ width: '100%' }}
+            style={{ width: '100%', background: '#18181A' }}
+            onAnimationStart={() => setIsTransitioning(true)}
+            onAnimationComplete={() => setIsTransitioning(false)}
           >
-            <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="flex-start">
+            <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="flex-start" bg="#18181A">
               {/* Header arriba */}
-              <Box w="100%" px={12} pt={8} pb={2} display="flex" alignItems="flex-start" justifyContent="space-between">
+              <Box w="100%" px={12} pt={8} pb={2} display="flex" alignItems="flex-start" justifyContent="space-between" bg="#18181A">
                 <Box>
                   <Heading size="2xl" color="blue.300" letterSpacing="tight">
                     VMware Assistance
@@ -187,7 +191,7 @@ function App() {
                 </Box>
               </Box>
               {/* Chat centrado */}
-              <Box w="100%" maxW="800px" mx="auto" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" pt={8}>
+              <Box w="100%" maxW="800px" mx="auto" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" pt={8} bg="#18181A">
                 <VStack spacing={4} align="stretch" w="100%">
                   {messages.map((msg, index) => (
                     <ChatMessage
