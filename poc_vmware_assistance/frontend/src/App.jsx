@@ -49,6 +49,18 @@ function App() {
   const handleSendMessage = async (message) => {
     if (!message.trim()) return
 
+    if (!chatOpen) {
+      setFirstMessage(message)
+      setChatOpen(true)
+      setMessages([
+        {
+          text: '¡Hola! Consulta aquí cualquier duda sobre tu infraestructura VMware.',
+          isUser: false,
+        },
+        { text: message, isUser: true },
+      ])
+      return
+    }
 
     setMessages((prev) => [...prev, { text: message, isUser: true }])
     setIsLoading(true)
