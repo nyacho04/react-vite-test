@@ -110,16 +110,17 @@ function App() {
                 w={{ base: '100%', sm: '80%', md: '40%' }}
                 mx="auto"
                 bg="#232328"
-                borderRadius="lg"
-                boxShadow="2xl"
-                p={10}
+                borderRadius="2xl"
+                boxShadow="0 8px 32px 0 rgba(0,0,0,0.25)"
+                p={12}
                 textAlign="center"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
                 justifyContent="center"
+                minH="220px"
               >
-                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta sobre la infraestructura VMware..." showCounter={true} />
+                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe una consulta sobre la infraestructura VMware" showCounter={true} modernStyle={true} />
               </Box>
             </motion.div>
           )}
