@@ -144,7 +144,7 @@ function App() {
                   p={2}
                   boxShadow="none"
                 >
-                  <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="transparent" fullWidthInput={true} />
+                  <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg={bgInput} fullWidthInput={true} inputColor={textColor} />
                 </Box>
               </motion.div>
               {/* Botones arriba a la derecha SIEMPRE visibles */}
