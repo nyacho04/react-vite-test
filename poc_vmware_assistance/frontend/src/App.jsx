@@ -123,7 +123,8 @@ function App() {
       <VStack w="100%" maxW="container.xl" spacing={4}>
         {!chatOpen && (
           <Box
-            w={{ base: '100%', sm: '80%', md: '36%' }}
+            w="100%"
+            maxW="420px"
             mx="auto"
             bg="transparent"
             boxShadow="none"
@@ -136,7 +137,7 @@ function App() {
             justifyContent="center"
             minH="unset"
           >
-            <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} />
+            <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="#232328" />
           </Box>
         )}
         {chatOpen && (

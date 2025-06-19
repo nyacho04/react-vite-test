@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const MAX_CHARS = 300
 
-const ChatInput = ({ onSendMessage, isLoading, placeholder = "Escribe tu consulta...", showCounter = false, modernStyle = false, hideBox = false }) => {
+const ChatInput = ({ onSendMessage, isLoading, placeholder = "Escribe tu consulta...", showCounter = false, modernStyle = false, hideBox = false, inputBg }) => {
   const [message, setMessage] = useState('')
 
   const handleSubmit = (e) => {
@@ -39,18 +39,18 @@ const ChatInput = ({ onSendMessage, isLoading, placeholder = "Escribe tu consult
             value={message}
             onChange={handleChange}
             placeholder={placeholder}
-            size={hideBox ? 'lg' : modernStyle ? 'lg' : 'lg'}
+            size={hideBox ? 'md' : modernStyle ? 'lg' : 'lg'}
             mr={2}
             isDisabled={isLoading}
-            bg={hideBox ? 'transparent' : modernStyle ? 'white' : (document.body.classList.contains('chakra-ui-dark') ? '#2D3748' : 'white')}
+            bg={inputBg ? inputBg : (hideBox ? 'transparent' : modernStyle ? 'white' : (document.body.classList.contains('chakra-ui-dark') ? '#2D3748' : 'white'))}
             color={hideBox ? 'white' : modernStyle ? '#232328' : (document.body.classList.contains('chakra-ui-dark') ? 'white' : 'black')}
-            borderRadius={hideBox ? 'none' : modernStyle ? 'md' : 'md'}
-            fontSize={hideBox ? '1.5rem' : modernStyle ? '1.35rem' : '1rem'}
+            borderRadius={hideBox ? 'md' : modernStyle ? 'md' : 'md'}
+            fontSize={hideBox ? '1.1rem' : modernStyle ? '1.15rem' : '1rem'}
             fontWeight={hideBox ? 400 : modernStyle ? 500 : 400}
-            px={hideBox ? 0 : modernStyle ? 6 : 4}
-            py={hideBox ? 2 : modernStyle ? 7 : 2}
+            px={hideBox ? 3 : modernStyle ? 6 : 4}
+            py={hideBox ? 2 : modernStyle ? 4 : 2}
             border={hideBox ? 'none' : undefined}
-            borderBottom={hideBox ? '2px solid #3a3a3a' : undefined}
+            borderBottom={hideBox ? (inputBg ? 'none' : '2px solid #3a3a3a') : undefined}
             boxShadow={hideBox ? 'none' : modernStyle ? '0 2px 8px 0 rgba(0,0,0,0.10)' : 'none'}
             _placeholder={{ color: hideBox ? '#A0AEC0' : modernStyle ? '#6B7280' : (document.body.classList.contains('chakra-ui-dark') ? 'gray.300' : 'gray.500') }}
             _focus={hideBox ? { borderColor: '#2196f3', boxShadow: 'none' } : {
