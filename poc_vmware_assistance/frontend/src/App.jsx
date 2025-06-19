@@ -15,6 +15,7 @@ import { FaMoon, FaSun, FaRedo } from 'react-icons/fa'
 import ChatMessage from './components/ChatMessage'
 import ChatInput from './components/ChatInput'
 import axios from 'axios'
+import { motion, AnimatePresence } from 'framer-motion'
 
 function App() {
   const [messages, setMessages] = useState([
@@ -27,6 +28,7 @@ function App() {
   const messagesEndRef = useRef(null)
   const toast = useToast()
   const { colorMode, toggleColorMode } = useColorMode()
+  const [chatOpen, setChatOpen] = useState(false)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -38,6 +40,8 @@ function App() {
 
   const handleSendMessage = async (message) => {
     if (!message.trim()) return
+
+    if (!chatOpen) setChatOpen(true)
 
     setMessages((prev) => [...prev, { text: message, isUser: true }])
     setIsLoading(true)
@@ -69,102 +73,134 @@ function App() {
   const handleResetChat = () => {
     setMessages([
       {
-        text: 'Hola, soy tu asistente virtual. ¿En qué puedo ayudarte?',
+        text: '¡Hola! Consulta aquí cualquier duda sobre tu infraestructura VMware.',
         isUser: false,
       },
     ])
+    setChatOpen(false)
   }
 
   return (
-    <Container maxW="container.xl" h="100vh" py={10}>
-      <VStack h="full" spacing={4}>
-        <Flex w="full" justify="space-between" align="center">
-          <Box textAlign="center" flex={1}>
-            <Heading size="lg" color={colorMode === 'dark' ? 'blue.300' : 'blue.600'}>
-              VMware Assistance
-            </Heading>
-            <Text color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}>
-              Diagnóstico inteligente de infraestructura virtual
-            </Text>
-          </Box>
-          <Flex gap={2}>
-            <IconButton
-              icon={colorMode === 'dark' ? <FaSun /> : <FaMoon />}
-              onClick={toggleColorMode}
-              aria-label="Cambiar tema"
-              colorScheme="blue"
-              variant="solid"
-              borderRadius="md"
-              size="lg"
-              bg="#2196f3"
-              _hover={{ bg: '#1976d2' }}
-              _active={{ bg: '#1565c0' }}
-              color="white"
-            />
-            <IconButton
-              icon={<FaRedo />}
-              onClick={handleResetChat}
-              aria-label="Reiniciar chat"
-              colorScheme="blue"
-              variant="solid"
-              borderRadius="md"
-              size="lg"
-              bg="#2196f3"
-              _hover={{ bg: '#1976d2' }}
-              _active={{ bg: '#1565c0' }}
-              color="white"
-            />
-          </Flex>
-        </Flex>
-
-        <Box
-          flex={1}
-          w="full"
-          bg={colorMode === 'dark' ? '#232328' : 'white'}
-          borderRadius="lg"
-          boxShadow="md"
-          overflow="hidden"
-          display="flex"
-          flexDirection="column"
-        >
-          <Box
-            flex={1}
-            overflowY="auto"
-            p={4}
-            css={{
-              '&::-webkit-scrollbar': {
-                width: '4px',
-              },
-              '&::-webkit-scrollbar-track': {
-                width: '6px',
-              },
-              '&::-webkit-scrollbar-thumb': {
-                background: colorMode === 'dark' ? 'gray.600' : 'gray.200',
-                borderRadius: '24px',
-              },
-            }}
-          >
-            <VStack spacing={4} align="stretch">
-              {messages.map((msg, index) => (
-                <ChatMessage
-                  key={index}
-                  message={msg.text}
-                  isUser={msg.isUser}
-                />
-              ))}
-              {isLoading && (
-                <Flex justify="center" my={4}>
-                  <Spinner color={colorMode === 'dark' ? 'blue.300' : 'blue.500'} />
-                </Flex>
-              )}
-              <div ref={messagesEndRef} />
-            </VStack>
-          </Box>
-
-          <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
-        </Box>
+    <Box minH="100vh" minW="100vw" bg="#18181A" display="flex" alignItems="center" justifyContent="center">
+      <VStack w="100%" maxW="container.xl" spacing={4}>
+        <AnimatePresence>
+          {!chatOpen && (
+            <motion.div
+              key="intro-block"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -40 }}
+              transition={{ duration: 0.7 }}
+              style={{ width: '100%' }}
+            >
+              <Box
+                w={{ base: '100%', sm: '80%', md: '60%' }}
+                mx="auto"
+                bg="#232328"
+                borderRadius="lg"
+                boxShadow="2xl"
+                p={10}
+                textAlign="center"
+              >
+                <Heading size="lg" color="blue.300" mb={2}>
+                  VMware Assistance
+                </Heading>
+                <Text color="gray.400" mb={6}>
+                  ¡Hola! Consulta aquí cualquier duda sobre tu infraestructura VMware.
+                </Text>
+                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+              </Box>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {chatOpen && (
+            <motion.div
+              key="chat-block"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -40 }}
+              transition={{ duration: 0.7 }}
+              style={{ width: '100%' }}
+            >
+              <Flex w="100%" justify="center">
+                <Box
+                  w={{ base: '100%', sm: '80%', md: '60%' }}
+                  bg="#232328"
+                  borderRadius="lg"
+                  boxShadow="2xl"
+                  overflow="hidden"
+                  display="flex"
+                  flexDirection="column"
+                  minH="500px"
+                  maxH="80vh"
+                >
+                  <Flex w="full" justify="space-between" align="center" p={4} borderBottom="1px solid #222">
+                    <Box textAlign="center" flex={1}>
+                      <Heading size="md" color="blue.300">
+                        VMware Assistance
+                      </Heading>
+                      <Text color="gray.400" fontSize="sm">
+                        Diagnóstico inteligente de infraestructura virtual
+                      </Text>
+                    </Box>
+                    <Flex gap={2}>
+                      <IconButton
+                        icon={<FaRedo />}
+                        onClick={handleResetChat}
+                        aria-label="Reiniciar chat"
+                        colorScheme="blue"
+                        variant="solid"
+                        borderRadius="md"
+                        size="md"
+                        bg="#2196f3"
+                        _hover={{ bg: '#1976d2' }}
+                        _active={{ bg: '#1565c0' }}
+                        color="white"
+                      />
+                    </Flex>
+                  </Flex>
+                  <Box
+                    flex={1}
+                    overflowY="auto"
+                    p={4}
+                    css={{
+                      '&::-webkit-scrollbar': {
+                        width: '4px',
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        width: '6px',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        background: '#232328',
+                        borderRadius: '24px',
+                      },
+                    }}
+                  >
+                    <VStack spacing={4} align="stretch">
+                      {messages.map((msg, index) => (
+                        <ChatMessage
+                          key={index}
+                          message={msg.text}
+                          isUser={msg.isUser}
+                        />
+                      ))}
+                      {isLoading && (
+                        <Flex justify="center" my={4}>
+                          <Spinner color="blue.300" />
+                        </Flex>
+                      )}
+                      <div ref={messagesEndRef} />
+                    </VStack>
+                  </Box>
+                  <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+                </Box>
+              </Flex>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </VStack>
-    </Container>
+    </Box>
   )
 }
 
