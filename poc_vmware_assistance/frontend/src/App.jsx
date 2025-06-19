@@ -147,6 +147,38 @@ function App() {
                   <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="transparent" fullWidthInput={true} />
                 </Box>
               </motion.div>
+              {/* Botones arriba a la derecha SIEMPRE visibles */}
+              <Box position="absolute" top={6} right={10} zIndex={20} display="flex" alignItems="center" gap={2}>
+                <IconButton
+                  icon={<FaRedo />}
+                  onClick={handleResetChat}
+                  aria-label="Reiniciar chat"
+                  colorScheme="blue"
+                  variant="solid"
+                  borderRadius="full"
+                  size="lg"
+                  bg="#2196f3"
+                  _hover={{ bg: '#1976d2' }}
+                  _active={{ bg: '#1565c0' }}
+                  color="white"
+                  boxShadow="0 2px 8px 0 rgba(0,0,0,0.10)"
+                  mt={-2}
+                />
+                <IconButton
+                  icon={colorMode === 'dark' ? <FaSun /> : <FaMoon />}
+                  onClick={toggleColorMode}
+                  aria-label="Cambiar tema"
+                  colorScheme="blue"
+                  variant="solid"
+                  borderRadius="full"
+                  size="lg"
+                  bg="#2196f3"
+                  _hover={{ bg: '#1976d2' }}
+                  _active={{ bg: '#1565c0' }}
+                  color="white"
+                  mt={-2}
+                />
+              </Box>
             </Box>
           </motion.div>
         )}
@@ -236,7 +268,7 @@ function App() {
                   p={2}
                   boxShadow="none"
                 >
-                  <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="transparent" fullWidthInput={true} />
+                  <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg={bgInput} fullWidthInput={true} inputColor={textColor} />
                 </Box>
               </Box>
             </Box>

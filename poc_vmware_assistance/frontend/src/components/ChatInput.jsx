@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const MAX_CHARS = 300
 
-const ChatInput = ({ onSendMessage, isLoading, placeholder = "Escribe tu consulta...", showCounter = false, modernStyle = false, hideBox = false, inputBg, fullWidthInput }) => {
+const ChatInput = ({ onSendMessage, isLoading, placeholder = "Escribe tu consulta...", showCounter = false, modernStyle = false, hideBox = false, inputBg, fullWidthInput, inputColor }) => {
   const [message, setMessage] = useState('')
 
   const handleSubmit = (e) => {
@@ -42,7 +42,7 @@ const ChatInput = ({ onSendMessage, isLoading, placeholder = "Escribe tu consult
             size={hideBox ? 'md' : modernStyle ? 'lg' : 'lg'}
             isDisabled={isLoading}
             bg={fullWidthInput ? 'transparent' : inputBg ? inputBg : (hideBox ? 'transparent' : modernStyle ? 'white' : (document.body.classList.contains('chakra-ui-dark') ? '#2D3748' : 'white'))}
-            color={fullWidthInput ? 'white' : (hideBox ? 'white' : modernStyle ? '#232328' : (document.body.classList.contains('chakra-ui-dark') ? 'white' : 'black'))}
+            color={inputColor ? inputColor : (fullWidthInput ? 'white' : (hideBox ? 'white' : modernStyle ? '#232328' : (document.body.classList.contains('chakra-ui-dark') ? 'white' : 'black')))}
             borderRadius={fullWidthInput ? 'xl' : (hideBox ? 'md' : modernStyle ? 'md' : 'md')}
             fontSize={hideBox ? '1.1rem' : modernStyle ? '1.15rem' : '1rem'}
             fontWeight={hideBox ? 400 : modernStyle ? 500 : 400}
@@ -51,7 +51,7 @@ const ChatInput = ({ onSendMessage, isLoading, placeholder = "Escribe tu consult
             border={fullWidthInput ? 'none' : (hideBox ? 'none' : undefined)}
             borderBottom={fullWidthInput ? 'none' : (hideBox ? (inputBg ? 'none' : '2px solid #3a3a3a') : undefined)}
             boxShadow={fullWidthInput ? 'none' : (hideBox ? 'none' : modernStyle ? '0 2px 8px 0 rgba(0,0,0,0.10)' : 'none')}
-            _placeholder={{ color: fullWidthInput ? '#A0AEC0' : (hideBox ? '#A0AEC0' : modernStyle ? '#6B7280' : (document.body.classList.contains('chakra-ui-dark') ? 'gray.300' : 'gray.500')) }}
+            _placeholder={{ color: '#888' }}
             _focus={fullWidthInput ? { borderColor: 'none', boxShadow: 'none' } : (hideBox ? { borderColor: '#2196f3', boxShadow: 'none' } : {
               borderColor: 'blue.500',
               boxShadow: modernStyle ? '0 0 0 2px #2196f3' : '0 0 0 1px var(--chakra-colors-blue-500)',
