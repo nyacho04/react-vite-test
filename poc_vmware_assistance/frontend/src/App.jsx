@@ -36,7 +36,7 @@ function App() {
   }, [messages])
 
   useEffect(() => {
-    if (isTransitioning) {
+    if (isTransitioning || isLoading) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'auto'
@@ -44,7 +44,7 @@ function App() {
     return () => {
       document.body.style.overflow = 'auto'
     }
-  }, [isTransitioning])
+  }, [isTransitioning, isLoading])
 
   const handleSendMessage = async (message) => {
     if (!message.trim()) return
@@ -240,22 +240,51 @@ function App() {
                 </Box>
               </Box>
               {/* Chat centrado */}
-              <Box w="100%" maxW="800px" mx="auto" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" pt={8} bg={bgMain}>
-                <VStack spacing={4} align="stretch" w="100%">
-                  {messages.map((msg, index) => (
-                    <ChatMessage
-                      key={index}
-                      message={msg.text}
-                      isUser={msg.isUser}
-                    />
-                  ))}
-                  {isLoading && (
-                    <Flex justify="center" my={4}>
-                      <Spinner color="blue.300" />
-                    </Flex>
-                  )}
-                  <div ref={messagesEndRef} />
-                </VStack>
+              <Box
+                w="100%"
+                maxW="800px"
+                mx="auto"
+                flex={1}
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                pt={8}
+                bg={bgMain}
+              >
+                <Box
+                  w="100%"
+                  maxH="60vh"
+                  overflowY="auto"
+                  css={{
+                    '::-webkit-scrollbar': {
+                      width: '6px',
+                    },
+                    '::-webkit-scrollbar-thumb': {
+                      background: colorMode === 'dark' ? '#232328' : '#bbb',
+                      borderRadius: '8px',
+                    },
+                    '::-webkit-scrollbar-track': {
+                      background: 'transparent',
+                    },
+                  }}
+                >
+                  <VStack spacing={4} align="stretch" w="100%">
+                    {messages.map((msg, index) => (
+                      <ChatMessage
+                        key={index}
+                        message={msg.text}
+                        isUser={msg.isUser}
+                      />
+                    ))}
+                    {isLoading && (
+                      <Flex justify="center" my={4}>
+                        <Spinner color="blue.300" />
+                      </Flex>
+                    )}
+                    <div ref={messagesEndRef} />
+                  </VStack>
+                </Box>
                 <Box
                   w="100%"
                   maxW="800px"
