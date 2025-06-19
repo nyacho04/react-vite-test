@@ -125,18 +125,18 @@ function App() {
           <Box
             w={{ base: '100%', sm: '80%', md: '36%' }}
             mx="auto"
-            bg="#232328"
-            borderRadius="2xl"
-            boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
-            p={16}
+            bg="transparent"
+            boxShadow="none"
+            borderRadius="none"
+            p={0}
             textAlign="center"
             display="flex"
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            minH="200px"
+            minH="unset"
           >
-            <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe una consulta sobre la infraestructura VMware." showCounter={true} modernStyle={true} />
+            <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} />
           </Box>
         )}
         {chatOpen && (
