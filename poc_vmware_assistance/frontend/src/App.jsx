@@ -138,57 +138,37 @@ function App() {
           </Box>
         )}
         {chatOpen && (
-          <Flex w="100%" justify="center">
+          <Box w="100%" maxW="800px" mx="auto" mt={8}>
+            <VStack spacing={4} align="stretch">
+              {messages.map((msg, index) => (
+                <ChatMessage
+                  key={index}
+                  message={msg.text}
+                  isUser={msg.isUser}
+                />
+              ))}
+              {isLoading && (
+                <Flex justify="center" my={4}>
+                  <Spinner color="blue.300" />
+                </Flex>
+              )}
+              <div ref={messagesEndRef} />
+            </VStack>
             <Box
-              w={{ base: '100%', sm: '80%', md: '48%' }}
-              bg="#232328"
-              borderRadius="2xl"
-              boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
-              overflow="hidden"
+              w="100%"
+              maxW="800px"
+              mx="auto"
+              mt={8}
               display="flex"
-              flexDirection="column"
-              minH="600px"
-              maxH="80vh"
-              position="relative"
+              alignItems="center"
+              bg="#232328"
+              borderRadius="xl"
+              p={2}
+              boxShadow="none"
             >
-              <Box
-                flex={1}
-                overflowY="auto"
-                p={8}
-                css={{
-                  '&::-webkit-scrollbar': {
-                    width: '4px',
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    width: '6px',
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    background: '#232328',
-                    borderRadius: '24px',
-                  },
-                }}
-              >
-                <VStack spacing={4} align="stretch">
-                  {messages.map((msg, index) => (
-                    <ChatMessage
-                      key={index}
-                      message={msg.text}
-                      isUser={msg.isUser}
-                    />
-                  ))}
-                  {isLoading && (
-                    <Flex justify="center" my={4}>
-                      <Spinner color="blue.300" />
-                    </Flex>
-                  )}
-                  <div ref={messagesEndRef} />
-                </VStack>
-              </Box>
-              <Box p={6} bg="#232328">
-                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
-              </Box>
+              <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="transparent" fullWidthInput={true} />
             </Box>
-          </Flex>
+          </Box>
         )}
       </VStack>
     </Box>
