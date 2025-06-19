@@ -123,10 +123,10 @@ function App() {
       <VStack w="100%" maxW="container.xl" spacing={4}>
         {!chatOpen && (
           <Box
-            w={{ base: '100%', sm: '80%', md: '48%' }}
+            w={{ base: '100%', sm: '80%', md: '36%' }}
             mx="auto"
             bg="#232328"
-            borderRadius="full"
+            borderRadius="2xl"
             boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
             p={16}
             textAlign="center"
@@ -144,7 +144,7 @@ function App() {
             <Box
               w={{ base: '100%', sm: '80%', md: '48%' }}
               bg="#232328"
-              borderRadius="full"
+              borderRadius="2xl"
               boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
               overflow="hidden"
               display="flex"
