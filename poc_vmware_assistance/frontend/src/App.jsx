@@ -15,7 +15,6 @@ import { FaMoon, FaSun, FaRedo } from 'react-icons/fa'
 import ChatMessage from './components/ChatMessage'
 import ChatInput from './components/ChatInput'
 import axios from 'axios'
-import { motion, AnimatePresence } from 'framer-motion'
 
 function App() {
   const [messages, setMessages] = useState([
@@ -103,127 +102,96 @@ function App() {
           Diagnóstico inteligente de infraestructura virtual
         </Text>
       </Box>
-      <AnimatePresence>
-        {chatOpen && (
-          <motion.div
-            key="reset-btn"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            style={{ position: 'absolute', top: 64, right: 96, zIndex: 10 }}
-          >
-            <IconButton
-              icon={<FaRedo />}
-              onClick={handleResetChat}
-              aria-label="Reiniciar chat"
-              colorScheme="blue"
-              variant="solid"
-              borderRadius="full"
-              size="lg"
-              bg="#2196f3"
-              _hover={{ bg: '#1976d2' }}
-              _active={{ bg: '#1565c0' }}
-              color="white"
-              boxShadow="0 2px 8px 0 rgba(0,0,0,0.10)"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {chatOpen && (
+        <Box position="absolute" top={16} right={24} zIndex={10}>
+          <IconButton
+            icon={<FaRedo />}
+            onClick={handleResetChat}
+            aria-label="Reiniciar chat"
+            colorScheme="blue"
+            variant="solid"
+            borderRadius="full"
+            size="lg"
+            bg="#2196f3"
+            _hover={{ bg: '#1976d2' }}
+            _active={{ bg: '#1565c0' }}
+            color="white"
+            boxShadow="0 2px 8px 0 rgba(0,0,0,0.10)"
+          />
+        </Box>
+      )}
       <VStack w="100%" maxW="container.xl" spacing={4}>
-        <AnimatePresence>
-          {!chatOpen && (
-            <motion.div
-              key="intro-block"
-              initial={{ opacity: 0, y: 80, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 80, scale: 0.98 }}
-              transition={{ duration: 1, ease: 'easeInOut' }}
-              style={{ width: '100%' }}
+        {!chatOpen && (
+          <Box
+            w={{ base: '100%', sm: '80%', md: '48%' }}
+            mx="auto"
+            bg="#232328"
+            borderRadius="4xl"
+            boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
+            p={16}
+            textAlign="center"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            minH="200px"
+          >
+            <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe una consulta sobre la infraestructura VMware." showCounter={true} modernStyle={true} />
+          </Box>
+        )}
+        {chatOpen && (
+          <Flex w="100%" justify="center">
+            <Box
+              w={{ base: '100%', sm: '80%', md: '48%' }}
+              bg="#232328"
+              borderRadius="4xl"
+              boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
+              overflow="hidden"
+              display="flex"
+              flexDirection="column"
+              minH="600px"
+              maxH="80vh"
+              position="relative"
             >
               <Box
-                w={{ base: '100%', sm: '80%', md: '48%' }}
-                mx="auto"
-                bg="#232328"
-                borderRadius="4xl"
-                boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
-                p={16}
-                textAlign="center"
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                justifyContent="center"
-                minH="200px"
+                flex={1}
+                overflowY="auto"
+                p={8}
+                css={{
+                  '&::-webkit-scrollbar': {
+                    width: '4px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    width: '6px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    background: '#232328',
+                    borderRadius: '24px',
+                  },
+                }}
               >
-                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe una consulta sobre la infraestructura VMware." showCounter={true} modernStyle={true} />
+                <VStack spacing={4} align="stretch">
+                  {messages.map((msg, index) => (
+                    <ChatMessage
+                      key={index}
+                      message={msg.text}
+                      isUser={msg.isUser}
+                    />
+                  ))}
+                  {isLoading && (
+                    <Flex justify="center" my={4}>
+                      <Spinner color="blue.300" />
+                    </Flex>
+                  )}
+                  <div ref={messagesEndRef} />
+                </VStack>
               </Box>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <AnimatePresence>
-          {chatOpen && (
-            <motion.div
-              key="chat-block"
-              initial={{ opacity: 0, y: 80, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 80, scale: 0.98 }}
-              transition={{ duration: 1, ease: 'easeInOut' }}
-              style={{ width: '100%' }}
-            >
-              <Flex w="100%" justify="center">
-                <Box
-                  w={{ base: '100%', sm: '80%', md: '48%' }}
-                  bg="#232328"
-                  borderRadius="4xl"
-                  boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
-                  overflow="hidden"
-                  display="flex"
-                  flexDirection="column"
-                  minH="600px"
-                  maxH="80vh"
-                  position="relative"
-                >
-                  <Box
-                    flex={1}
-                    overflowY="auto"
-                    p={8}
-                    css={{
-                      '&::-webkit-scrollbar': {
-                        width: '4px',
-                      },
-                      '&::-webkit-scrollbar-track': {
-                        width: '6px',
-                      },
-                      '&::-webkit-scrollbar-thumb': {
-                        background: '#232328',
-                        borderRadius: '24px',
-                      },
-                    }}
-                  >
-                    <VStack spacing={4} align="stretch">
-                      {messages.map((msg, index) => (
-                        <ChatMessage
-                          key={index}
-                          message={msg.text}
-                          isUser={msg.isUser}
-                        />
-                      ))}
-                      {isLoading && (
-                        <Flex justify="center" my={4}>
-                          <Spinner color="blue.300" />
-                        </Flex>
-                      )}
-                      <div ref={messagesEndRef} />
-                    </VStack>
-                  </Box>
-                  <Box p={6} bg="#232328">
-                    <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
-                  </Box>
-                </Box>
-              </Flex>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <Box p={6} bg="#232328">
+                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+              </Box>
+            </Box>
+          </Flex>
+        )}
       </VStack>
     </Box>
   )
