@@ -94,7 +94,12 @@ function App() {
   }
 
   return (
-    <Box minH="100vh" minW="100vw" bg="#18181A" display="flex" alignItems="center" justifyContent="center" position="relative">
+    <Box minH="100vh" minW="100vw" bg="#18181A" display="flex" flexDirection="column" alignItems="center" justifyContent="center" position="relative">
+      <Box mt={16} mb={8} textAlign="center">
+        <Heading size="2xl" color="blue.300" letterSpacing="tight">
+          VMware Assistance
+        </Heading>
+      </Box>
       <AnimatePresence>
         {chatOpen && (
           <motion.div
@@ -103,7 +108,7 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            style={{ position: 'absolute', top: 32, right: 48, zIndex: 10 }}
+            style={{ position: 'absolute', top: 48, right: 64, zIndex: 10 }}
           >
             <IconButton
               icon={<FaRedo />}
@@ -145,9 +150,12 @@ function App() {
                 flexDirection="column"
                 alignItems="center"
                 justifyContent="center"
-                minH="120px"
+                minH="180px"
               >
-                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={true} modernStyle={true} />
+                <Text color="gray.400" fontSize="lg" mb={8}>
+                  Diagnóstico inteligente de infraestructura virtual
+                </Text>
+                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe una consulta sobre la infraestructura VMware." showCounter={true} modernStyle={true} />
               </Box>
             </motion.div>
           )}
@@ -176,12 +184,6 @@ function App() {
                   position="relative"
                 >
                   <Flex w="full" direction="column" align="center" p={8} borderBottom="1px solid #222">
-                    <Heading size="lg" color="blue.300" mb={1}>
-                      VMware Assistance
-                    </Heading>
-                    <Text color="gray.400" fontSize="md">
-                      Diagnóstico inteligente de infraestructura virtual
-                    </Text>
                   </Flex>
                   <Box
                     flex={1}
