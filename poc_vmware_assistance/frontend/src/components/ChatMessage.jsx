@@ -19,13 +19,13 @@ const ChatMessage = ({ message, isUser }) => {
       >
         <Flex align="center" mb={2}>
           <Avatar
-            size="sm"
-            icon={isUser ? <FaUser /> : <FaRobot />}
+            size={isUser ? 'sm' : 'md'}
+            icon={isUser ? <FaUser /> : <FaRobot size={20} />}
             bg={isUser ? 'blue.600' : 'gray.400'}
             mr={2}
           />
           <Text fontSize="sm" fontWeight="bold">
-            {isUser ? 'Tú' : (message.name || 'VMware Assistance')}
+            {isUser ? 'Usuario' : (message.name || 'VMware Assistance')}
           </Text>
         </Flex>
         <Box>
