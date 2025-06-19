@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const MAX_CHARS = 300
 
-const ChatInput = ({ onSendMessage, isLoading }) => {
+const ChatInput = ({ onSendMessage, isLoading, placeholder = "Escribe tu consulta...", showCounter = false }) => {
   const [message, setMessage] = useState('')
 
   const handleSubmit = (e) => {
@@ -29,7 +29,7 @@ const ChatInput = ({ onSendMessage, isLoading }) => {
           <Input
             value={message}
             onChange={handleChange}
-            placeholder="Escribe tu consulta sobre la infraestructura VMware..."
+            placeholder={placeholder}
             size="lg"
             mr={2}
             isDisabled={isLoading}
@@ -60,14 +60,16 @@ const ChatInput = ({ onSendMessage, isLoading }) => {
             }}
           />
         </Flex>
-        <Text
-          fontSize="sm"
-          color={message.length > MAX_CHARS ? 'red.500' : 'gray.500'}
-          mt={1}
-          textAlign="right"
-        >
-          {message.length}/{MAX_CHARS}
-        </Text>
+        {showCounter && (
+          <Text
+            fontSize="sm"
+            color={message.length > MAX_CHARS ? 'red.500' : 'gray.500'}
+            mt={1}
+            textAlign="right"
+          >
+            {message.length}/{MAX_CHARS}
+          </Text>
+        )}
       </Flex>
     </form>
   )

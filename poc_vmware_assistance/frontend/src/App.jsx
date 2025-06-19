@@ -29,6 +29,7 @@ function App() {
   const toast = useToast()
   const { colorMode, toggleColorMode } = useColorMode()
   const [chatOpen, setChatOpen] = useState(false)
+  const [firstMessage, setFirstMessage] = useState("")
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -41,7 +42,18 @@ function App() {
   const handleSendMessage = async (message) => {
     if (!message.trim()) return
 
-    if (!chatOpen) setChatOpen(true)
+    if (!chatOpen) {
+      setFirstMessage(message)
+      setChatOpen(true)
+      setMessages([
+        {
+          text: '¡Hola! Consulta aquí cualquier duda sobre tu infraestructura VMware.',
+          isUser: false,
+        },
+        { text: message, isUser: true },
+      ])
+      return
+    }
 
     setMessages((prev) => [...prev, { text: message, isUser: true }])
     setIsLoading(true)
@@ -78,6 +90,7 @@ function App() {
       },
     ])
     setChatOpen(false)
+    setFirstMessage("")
   }
 
   return (
@@ -87,28 +100,26 @@ function App() {
           {!chatOpen && (
             <motion.div
               key="intro-block"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -40 }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -40, scale: 0.95 }}
               transition={{ duration: 0.7 }}
               style={{ width: '100%' }}
             >
               <Box
-                w={{ base: '100%', sm: '80%', md: '60%' }}
+                w={{ base: '100%', sm: '80%', md: '40%' }}
                 mx="auto"
                 bg="#232328"
                 borderRadius="lg"
                 boxShadow="2xl"
                 p={10}
                 textAlign="center"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
               >
-                <Heading size="lg" color="blue.300" mb={2}>
-                  VMware Assistance
-                </Heading>
-                <Text color="gray.400" mb={6}>
-                  ¡Hola! Consulta aquí cualquier duda sobre tu infraestructura VMware.
-                </Text>
-                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+                <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta sobre la infraestructura VMware..." showCounter={true} />
               </Box>
             </motion.div>
           )}
@@ -117,9 +128,9 @@ function App() {
           {chatOpen && (
             <motion.div
               key="chat-block"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -40 }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -40, scale: 0.95 }}
               transition={{ duration: 0.7 }}
               style={{ width: '100%' }}
             >
