@@ -100,6 +100,11 @@ function App() {
     setFirstMessage("")
   }
 
+  const bgMain = colorMode === 'dark' ? '#18181A' : '#fff'
+  const bgInput = colorMode === 'dark' ? '#232328' : '#f5f5f5'
+  const textColor = colorMode === 'dark' ? 'white' : '#232328'
+  const subtitleColor = colorMode === 'dark' ? 'gray.400' : 'gray.600'
+
   return (
     <Box minH="100vh" minW="100vw" bg="#18181A" position="relative">
       {/* INTERFAZ INICIAL: solo título, subtítulo e input centrados verticalmente, con animación */}
@@ -107,24 +112,24 @@ function App() {
         {!chatOpen && (
           <motion.div
             key="inicio"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
-            style={{ width: '100%', background: '#18181A' }}
+            style={{ width: '100%', background: bgMain }}
             onAnimationStart={() => setIsTransitioning(true)}
             onAnimationComplete={() => setIsTransitioning(false)}
           >
-            <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" bg="#18181A">
+            <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" bg={bgMain}>
               <Heading size="2xl" color="blue.300" letterSpacing="tight" mb={2}>
                 VMware Assistance
               </Heading>
-              <Text color="gray.400" fontSize="xl" mb={8}>
+              <Text color={subtitleColor} fontSize="xl" mb={8}>
                 Diagnóstico inteligente de infraestructura virtual
               </Text>
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: 'easeInOut' }}
                 style={{ width: '100%', background: 'transparent' }}
               >
@@ -134,7 +139,7 @@ function App() {
                   mx="auto"
                   display="flex"
                   alignItems="center"
-                  bg="#232328"
+                  bg={bgInput}
                   borderRadius="xl"
                   p={2}
                   boxShadow="none"
@@ -151,22 +156,22 @@ function App() {
         {chatOpen && (
           <motion.div
             key="chat"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
-            style={{ width: '100%', background: '#18181A' }}
+            style={{ width: '100%', background: bgMain }}
             onAnimationStart={() => setIsTransitioning(true)}
             onAnimationComplete={() => setIsTransitioning(false)}
           >
-            <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="flex-start" bg="#18181A">
+            <Box minH="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="flex-start" bg={bgMain}>
               {/* Header arriba */}
-              <Box w="100%" px={12} pt={8} pb={2} display="flex" alignItems="flex-start" justifyContent="space-between" bg="#18181A">
+              <Box w="100%" px={12} pt={8} pb={2} display="flex" alignItems="flex-start" justifyContent="space-between" bg={bgMain}>
                 <Box>
                   <Heading size="2xl" color="blue.300" letterSpacing="tight">
                     VMware Assistance
                   </Heading>
-                  <Text color="gray.400" fontSize="xl" mt={2}>
+                  <Text color={subtitleColor} fontSize="xl" mt={2}>
                     Diagnóstico inteligente de infraestructura virtual
                   </Text>
                 </Box>
@@ -203,7 +208,7 @@ function App() {
                 </Box>
               </Box>
               {/* Chat centrado */}
-              <Box w="100%" maxW="800px" mx="auto" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" pt={8} bg="#18181A">
+              <Box w="100%" maxW="800px" mx="auto" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" pt={8} bg={bgMain}>
                 <VStack spacing={4} align="stretch" w="100%">
                   {messages.map((msg, index) => (
                     <ChatMessage
@@ -226,7 +231,7 @@ function App() {
                   mt={8}
                   display="flex"
                   alignItems="center"
-                  bg="#232328"
+                  bg={bgInput}
                   borderRadius="xl"
                   p={2}
                   boxShadow="none"
