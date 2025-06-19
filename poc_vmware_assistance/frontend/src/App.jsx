@@ -17,12 +17,7 @@ import ChatInput from './components/ChatInput'
 import axios from 'axios'
 
 function App() {
-  const [messages, setMessages] = useState([
-    {
-      text: 'Hola, soy tu asistente virtual. ¿En qué puedo ayudarte?',
-      isUser: false,
-    },
-  ])
+  const [messages, setMessages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
   const toast = useToast()
@@ -93,17 +88,17 @@ function App() {
   }
 
   return (
-    <Box minH="100vh" minW="100vw" bg="#18181A" display="flex" flexDirection="column" alignItems="center" justifyContent="center" position="relative">
-      <Box mt={16} mb={2} textAlign="center">
-        <Heading size="2xl" color="blue.300" letterSpacing="tight">
-          VMware Assistance
-        </Heading>
-        <Text color="gray.400" fontSize="xl" mt={4}>
-          Diagnóstico inteligente de infraestructura virtual
-        </Text>
-      </Box>
-      {chatOpen && (
-        <Box position="absolute" top={16} right={24} zIndex={10}>
+    <Box minH="100vh" minW="100vw" bg="#18181A" display="flex" flexDirection="column" alignItems="center" justifyContent="flex-start" position="relative">
+      <Box w="100%" px={12} pt={8} pb={2} display="flex" alignItems="flex-start" justifyContent="space-between">
+        <Box>
+          <Heading size="2xl" color="blue.300" letterSpacing="tight">
+            VMware Assistance
+          </Heading>
+          <Text color="gray.400" fontSize="xl" mt={2}>
+            Diagnóstico inteligente de infraestructura virtual
+          </Text>
+        </Box>
+        <Box display="flex" alignItems="center" gap={2}>
           <IconButton
             icon={<FaRedo />}
             onClick={handleResetChat}
@@ -117,10 +112,25 @@ function App() {
             _active={{ bg: '#1565c0' }}
             color="white"
             boxShadow="0 2px 8px 0 rgba(0,0,0,0.10)"
+            mt={-2}
+          />
+          <IconButton
+            icon={colorMode === 'dark' ? <FaSun /> : <FaMoon />}
+            onClick={toggleColorMode}
+            aria-label="Cambiar tema"
+            colorScheme="blue"
+            variant="solid"
+            borderRadius="full"
+            size="lg"
+            bg="#2196f3"
+            _hover={{ bg: '#1976d2' }}
+            _active={{ bg: '#1565c0' }}
+            color="white"
+            mt={-2}
           />
         </Box>
-      )}
-      <VStack w="100%" maxW="container.xl" spacing={4}>
+      </Box>
+      <VStack w="100%" maxW="container.xl" spacing={4} flex={1} justifyContent="center">
         {!chatOpen && (
           <Box
             w="100%"
