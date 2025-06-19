@@ -126,7 +126,7 @@ function App() {
             w={{ base: '100%', sm: '80%', md: '48%' }}
             mx="auto"
             bg="#232328"
-            borderRadius="4xl"
+            borderRadius="full"
             boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
             p={16}
             textAlign="center"
@@ -144,7 +144,7 @@ function App() {
             <Box
               w={{ base: '100%', sm: '80%', md: '48%' }}
               bg="#232328"
-              borderRadius="4xl"
+              borderRadius="full"
               boxShadow="0 12px 48px 0 rgba(0,0,0,0.30)"
               overflow="hidden"
               display="flex"
