@@ -124,20 +124,17 @@ function App() {
         {!chatOpen && (
           <Box
             w="100%"
-            maxW="420px"
+            maxW="800px"
             mx="auto"
-            bg="transparent"
-            boxShadow="none"
-            borderRadius="none"
-            p={0}
-            textAlign="center"
+            mt={8}
             display="flex"
-            flexDirection="column"
             alignItems="center"
-            justifyContent="center"
-            minH="unset"
+            bg="#232328"
+            borderRadius="xl"
+            p={2}
+            boxShadow="none"
           >
-            <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="#232328" />
+            <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} placeholder="Escribe tu consulta..." showCounter={false} modernStyle={true} hideBox={true} inputBg="transparent" fullWidthInput={true} />
           </Box>
         )}
         {chatOpen && (
