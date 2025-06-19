@@ -107,10 +107,10 @@ function App() {
         {!chatOpen && (
           <motion.div
             key="inicio"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
-            transition={{ duration: 0.7, ease: 'easeInOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
             style={{ width: '100%', background: '#18181A' }}
             onAnimationStart={() => setIsTransitioning(true)}
             onAnimationComplete={() => setIsTransitioning(false)}
@@ -123,9 +123,9 @@ function App() {
                 Diagnóstico inteligente de infraestructura virtual
               </Text>
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: 'easeInOut' }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: 'easeInOut' }}
                 style={{ width: '100%', background: 'transparent' }}
               >
                 <Box
@@ -151,10 +151,10 @@ function App() {
         {chatOpen && (
           <motion.div
             key="chat"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
-            transition={{ duration: 0.7, ease: 'easeInOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
             style={{ width: '100%', background: '#18181A' }}
             onAnimationStart={() => setIsTransitioning(true)}
             onAnimationComplete={() => setIsTransitioning(false)}
